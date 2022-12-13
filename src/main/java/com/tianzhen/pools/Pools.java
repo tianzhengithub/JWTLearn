@@ -2,21 +2,25 @@ package com.tianzhen.pools;
 
 import java.sql.Driver;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.sql.Connection;
 
 public class Pools {
     private static Driver driver;
     static {
         try {
-            driver = new com.mysql.cj.jdbc.Driver();
+            driver = new org.postgresql.Driver();
             DriverManager.registerDriver(driver);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
-    private static Map<Connection,Integer> pool=new HashMap<>();
-    private static String url="jdbc:mysql://localhost:3306/depository?serverTimezone=Asia/Shanghai";
-    private static String user="root";
-    private static String password="jinhaolin";
+    private static Map<Connection,Integer> pool = new HashMap<>();
+    private static String url="jdbc:postgresql://localhost:5432/postgres";
+    private static String user="postgres";
+    private static String password="141592";
     /**
      * 从连接池中获取一个空闲连接，如果没有则创建一个新的连接返回
      * synchronized确保并发请求时，数据库连接的正确性
